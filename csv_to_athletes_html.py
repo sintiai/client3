@@ -75,7 +75,8 @@ def gen_athlete_page(data, outfile):
    <main id = "main">
       <section id= "athlete-sr-table">
          <h2>Athlete's Seasonal Records (SR) per Year</h2>
-            <table>
+         <div class="scrollable-table">
+            <table <table class="card-table">
                   <thead>
                      <tr>
                         <th> Year </th>

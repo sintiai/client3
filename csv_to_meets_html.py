@@ -36,7 +36,7 @@ def csv_to_html(csv_filename, output_folder):
    <a href = "#main">Skip to Main Content</a>
    <nav>
      <ul>
-        <li><a href="index.html">Home Page</a></li>
+        <li><a href="../index.html">Home Page</a></li>
         <li><a href="#summary">Summary</a></li>
         <li><a href="#team-results">Team Results</a></li>
         <li><a href="#individual-results">Individual Results</a></li>
@@ -107,14 +107,15 @@ def csv_to_html(csv_filename, output_folder):
 """
 
         html_content += """</section>\n
+        
         <section id = "gallery">
         <h2>Gallery</h2>
-        """
+        <div class = "gallery">"""
 
         html_content += create_meet_image_gallery(url)
         # Close the HTML document
         html_content += """
-   </section>
+   </div> </section>
    </main>   
    <footer>
                      <p>
@@ -196,20 +197,23 @@ def select_random_photos(folder_path, num_photos=25):
 
 # Step 3: Generate HTML image tags
 def generate_image_tags(image_files, folder_path):
+    print("In Generate Image Tags")
+
     img_tags = []
     for img in image_files:
         img_path = os.path.join(folder_path, img)
-        # print(f"The image_path is {img_path}")
+        print(f"The image_path is {img_path}")
         img_tags.append(f'<img src=../{img_path} width = "200" alt="">')
     return "\n".join(img_tags)
 
 # Putting it all together
 def create_meet_image_gallery(url):
+    print("In Create Meet Image Gallery")
     meet_id = extract_meet_id(url)
     # Define the folder path for images based on the meet ID
     folder_path = f'images/meets/{meet_id}/'
 
-    # print(f"The folder path is {folder_path}")
+    print(f"The folder path is {folder_path}")
     
     if not os.path.exists(folder_path):
         return ""
@@ -220,11 +224,12 @@ def create_meet_image_gallery(url):
     
     # Generate image tags
     html_image_tags = generate_image_tags(selected_photos, folder_path)
+    print(html_image_tags)
     
     return html_image_tags
 
 # Example usage
-url = "https://www.athletic.net/CrossCountry/meet/235827/results/943367"
+url = "https://www.athletic.net/CrossCountry/meet/236072/results/943367"
 html_gallery = create_meet_image_gallery(url)
 print(html_gallery)
 
@@ -235,4 +240,6 @@ if __name__ == "__main__":
     if not os.path.exists(meets_folder):
         print(f"Folder '{meets_folder}' does not exist.")
     else:
+        print(f"Folder '{meets_folder}' does  exist.")
+
         process_meet_files()
